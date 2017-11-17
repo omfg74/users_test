@@ -1,11 +1,13 @@
-package com.example.omfg.test_task_user_list;
+package com.example.omfg.test_task_user_list.Gui;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.omfg.test_task_user_list.R;
+
 public class MainActivity extends AppCompatActivity {
+//    DBHelper dbHelper = new DBHelper(this);
 MainActivityFragment mainActivityFragment = new MainActivityFragment();
 FragmentTransaction transaction;
     @Override
@@ -16,7 +18,6 @@ transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.add(R.id.mainFrame,mainActivityFragment);
         transaction.commit();
-        UserParser userParser = new UserParser();
-        userParser.execute();
+
     }
 }
