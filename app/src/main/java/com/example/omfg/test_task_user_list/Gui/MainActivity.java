@@ -14,8 +14,8 @@ FragmentTransaction transaction;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-transaction = getSupportFragmentManager().beginTransaction();
-        transaction.addToBackStack(null);
+        transaction = getSupportFragmentManager().beginTransaction();
+
         transaction.add(R.id.mainFrame,mainActivityFragment);
         transaction.commit();
 

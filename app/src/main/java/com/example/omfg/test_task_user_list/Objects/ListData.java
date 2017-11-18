@@ -5,6 +5,17 @@ package com.example.omfg.test_task_user_list.Objects;
  */
 
 public class ListData {
+    private int id;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+
+        return id;
+    }
+
     private String name;
     private String email;
     private String companyName;

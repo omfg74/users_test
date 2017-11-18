@@ -101,6 +101,7 @@ lists = new ArrayList<>();
                 listData.setName(name);
                 listData.setEmail(email);
                 listData.setCompanyName(companyName);
+                listData.setId(Integer.parseInt(id));
 
                 lists.add(listData);
             }

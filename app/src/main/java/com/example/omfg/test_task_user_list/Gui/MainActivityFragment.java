@@ -1,5 +1,6 @@
 package com.example.omfg.test_task_user_list.Gui;
 
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.omfg.test_task_user_list.Objects.ListData;
 import com.example.omfg.test_task_user_list.Logic.OnDownLoadComplated;
@@ -26,14 +29,21 @@ public class MainActivityFragment extends Fragment implements OnDownLoadComplate
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UserParser userParser = new UserParser(this);
-        userParser.execute();
+
+
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
 
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        UserParser userParser = new UserParser(this);
+        userParser.execute();
         return inflater.inflate(R.layout.mainfragment,null);
 
 
@@ -49,13 +59,28 @@ public class MainActivityFragment extends Fragment implements OnDownLoadComplate
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        Log.d("LISTS_SIZE","list "+lists.size());
-
-
-
         listView = (ListView) getActivity().findViewById(R.id.mainListView);
+        Log.d("LISTS_SIZE","list "+lists.size());
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+               Toast.makeText(getActivity(),i+" "+l,Toast.LENGTH_SHORT).show();
+               Bundle bundle =new Bundle();
+               bundle.putInt("i",i);
+               Log.d("name from list "," "+lists.get(i).getName());
+               bundle.putString("name",lists.get(i).getName());
+               MessaageFragment messaageFragment = new MessaageFragment();
+               FragmentTransaction tr = getFragmentManager().beginTransaction();
+               tr.addToBackStack(null);
+               messaageFragment.setArguments(bundle);
+
+               tr.replace(R.id.mainFrame,messaageFragment);
+               tr.commit();
+
+
+           }
+       });
     }
 
 
