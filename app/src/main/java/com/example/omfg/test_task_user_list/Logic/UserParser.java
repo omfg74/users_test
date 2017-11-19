@@ -102,6 +102,18 @@ lists = new ArrayList<>();
                 listData.setEmail(email);
                 listData.setCompanyName(companyName);
                 listData.setId(Integer.parseInt(id));
+                listData.setUserName(username);
+                listData.setPhone(phone);
+                listData.setSite(webSite);
+                listData.setStreet(street);
+                listData.setSuite(suite);
+                listData.setCity(city);
+                listData.setZipcode(zipcode);
+                Log.d("ZIP ",""+zipcode);
+                listData.setLat(Double.parseDouble(lat));
+                listData.setLng(Double.parseDouble(lng));
+                listData.setCatchPhrase(catchPrase);
+                listData.setBs(bs);
 
                 lists.add(listData);
             }

@@ -13,10 +13,10 @@ public class ListData {
     private String street;
     private String suite;
     private String city;
-    private long zipcode;
+    private String zipcode;
     private double lat;
     private double lng;
-    private long phone;
+    private String phone;
     private String site;
     private String catchPhrase;
     private String bs;
@@ -37,7 +37,7 @@ public class ListData {
         this.city = city;
     }
 
-    public void setZipcode(long zipcode) {
+    public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
 
@@ -49,7 +49,7 @@ public class ListData {
         this.lng = lng;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -82,7 +82,7 @@ public class ListData {
         return city;
     }
 
-    public long getZipcode() {
+    public String getZipcode() {
         return zipcode;
     }
 
@@ -94,7 +94,7 @@ public class ListData {
         return lng;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 

@@ -35,6 +35,7 @@ public class MessageFragment extends Fragment implements MessageSelector {
     int i;
     TextView nameTextView,titleTextView,bodyTextView;
     ListView messageListView;
+    boolean phone=true;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -69,6 +70,7 @@ public class MessageFragment extends Fragment implements MessageSelector {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -91,8 +93,7 @@ public class MessageFragment extends Fragment implements MessageSelector {
         Bundle bundle = getArguments();
         int i = bundle.getInt("i");
         String name = bundle.getString("name");
-        Log.d("Name from bundrl ", name);
-        Log.d("I"," "+i);
+        this.phone = bundle.getBoolean("phone");
         this.i =i;
         this.name = name;
 //        nameTextView = view.findViewById(R.id.nameTextView);
@@ -139,8 +140,10 @@ public class MessageFragment extends Fragment implements MessageSelector {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if(phone) {
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.popBackStack();
 
+            fragmentManager.popBackStack();
+        }
     }
 }

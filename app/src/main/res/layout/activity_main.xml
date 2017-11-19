@@ -7,4 +7,5 @@
     android:layout_height="match_parent"
     tools:context="com.example.omfg.test_task_user_list.Gui.MainActivity"
     android:id="@+id/mainFrame">
+
 </FrameLayout>

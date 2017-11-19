@@ -28,14 +28,17 @@ import java.util.ArrayList;
  */
 
 public class MainActivityFragment extends Fragment implements OnDownLoadComplated {
-    ArrayList<ListData> lists=  new ArrayList<>();
-    ArrayList<ListData> sotredList=  new ArrayList<>();
+    ArrayList<ListData> lists = new ArrayList<>();
+    ArrayList<ListData> sotredList = new ArrayList<>();
     ListView listView;
+    boolean phone;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         new DBHelper(getContext());
+        setRetainInstance(true);
 
     }
 
@@ -50,55 +53,63 @@ public class MainActivityFragment extends Fragment implements OnDownLoadComplate
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         UserParser userParser = new UserParser(this);
         userParser.execute();
-        return inflater.inflate(R.layout.mainfragment,null);
+        Bundle bundle = getArguments();
 
+        this.phone = bundle.getBoolean("phone");
+        return inflater.inflate(R.layout.mainfragment, null);
 
 
     }
+
     @Override
     public void downloaded(ArrayList<ListData> lists) {
 
         //не так красиво как могло быть
-        Log.d("LISTS_SIZE","list "+lists.size());
-        Runnable insertIntoDB = new InputIntoDB(getContext(),lists);
+
+        Runnable insertIntoDB = new InputIntoDB(getContext(), lists);
         new Thread(insertIntoDB).start();
 
 
         this.lists = lists;
         SortListAlbeticaly sortListAlbeticaly = new SortListAlbeticaly();
-       sotredList=sortListAlbeticaly.sort(lists);
+        sotredList = sortListAlbeticaly.sort(lists);
         CustomAdapter customAdapter = new CustomAdapter(getContext(), sotredList);
         listView.setAdapter(customAdapter);
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         listView = (ListView) getActivity().findViewById(R.id.mainListView);
-        Log.d("LISTS_SIZE","list "+lists.size());
-       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-               Toast.makeText(getActivity(),i+" "+l,Toast.LENGTH_SHORT).show();
-               Bundle bundle =new Bundle();
-               GetRealId getRealId = new GetRealId();
-               i =getRealId.getID(lists,sotredList.get(i).getName());
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-               bundle.putInt("i",i);
-               Log.d("name from list "," "+lists.get(i).getName());
-               bundle.putString("name",lists.get(i).getName());
-               MessageFragment messageFragment = new MessageFragment();
-               FragmentTransaction tr = getFragmentManager().beginTransaction();
-               tr.addToBackStack(null);
-               messageFragment.setArguments(bundle);
+//               Toast.makeText(getActivity(),i+" "+l,Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                GetRealId getRealId = new GetRealId();
+                i = getRealId.getID(lists, sotredList.get(i).getName());
 
-               tr.replace(R.id.mainFrame, messageFragment);
-               tr.commit();
+                bundle.putInt("i", i);
+                bundle.putBoolean("phone",phone);
+                //     Log.d("name from list "," "+lists.get(i).getName());
+                bundle.putString("name", lists.get(i).getName());
+                MessageFragment messageFragment = new MessageFragment();
+                FragmentTransaction tr = getFragmentManager().beginTransaction();
+                tr.addToBackStack(null);
+                messageFragment.setArguments(bundle);
+                if (phone) {
+                    tr.replace(R.id.mainFrame, messageFragment);
+                    tr.commit();
+                } else if (!phone) {
+                    tr.replace(R.id.message_fragment, messageFragment);
+                    tr.commit();
+                }
 
-
-           }
-       });
+            }
+        });
 
     }
 
