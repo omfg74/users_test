@@ -35,7 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //TABLE COMPANY
     //ID
-    //NAME
+    public static final String COLUMN_COMPANY_NAME = "COMPANY_NAME";
     public static final String COLUMN_CATCH_PHRASE = "CATCH_PHRASE";
     public static final String COLUMN_BS = "BS";
 
@@ -51,22 +51,15 @@ sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS "
                         +COLUMN_USERNAME+ " TEXT, "
                         +COLUMN_EMAIL+ " TEXT, "
                         +COLUMN_PHONE+ " TEXT, "
-                        +COLUMN_WEBSITE + " TEXT"
-                        +");");
-sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS "
-        +TABLE_ADRESS+"(_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-        +COLUMN_ID+ " LONG, "
+                        +COLUMN_WEBSITE + " TEXT,"
+
         +COLUMN_STREET+" TEXT, "
         +COLUMN_SUITE+" TEXT, "
         +COLUMN_CITY+" TEXT, "
         +COLUMN_ZIPCODE+" LONG, "
         +COLUMN_LAT+" REAL, "
-        +COLUMN_LNG + " REAL "+
-        ");");
-sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS "
-        +TABLE_USERS+"(_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-        +COLUMN_ID + " LONG, "
-        +COLUMN_NAME + " TEXT, "
+        +COLUMN_LNG + " REAL, "
+        +COLUMN_COMPANY_NAME + " TEXT, "
         +COLUMN_CATCH_PHRASE + " TEXT, "
         +COLUMN_BS + " TEXT "+
 

@@ -27,14 +27,18 @@ public class MessageParser extends AsyncTask<Void,Void,String> {
     BufferedReader reader = null;
     String result = "";
     MessageSelector messageSelector;
-    public MessageParser(MessageSelector messageSelector) {
+    int i;
+    public MessageParser(MessageSelector messageSelector,int i) {
     this.messageSelector = messageSelector;
+    this.i = i;
     }
 
     @Override
     protected String doInBackground(Void... voids) {
         try{
-            URL url =new URL("https://jsonplaceholder.typicode.com/posts?userId=1");
+
+            URL url =new URL("https://jsonplaceholder.typicode.com/posts?userId="+i);
+            Log.d("URL"," "+url);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();

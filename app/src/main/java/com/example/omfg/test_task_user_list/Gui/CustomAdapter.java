@@ -41,18 +41,18 @@ ArrayList <ListData> listDatas= new ArrayList<>();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.listitem,parent,false);
+    public View getView(int position, View view, ViewGroup parent) {
+        if(view == null){
+            view = LayoutInflater.from(context).inflate(R.layout.listitem,parent,false);
 
             ListData listData = (ListData)getItem(position);
-            TextView nameTextView = (TextView)convertView.findViewById(R.id.name_textView);
-            TextView emailTextview = (TextView)convertView.findViewById(R.id.email_textView);
-            TextView companyTextView = (TextView)convertView.findViewById(R.id.company_textView);
+            TextView nameTextView = (TextView)view.findViewById(R.id.name_textView);
+            TextView emailTextview = (TextView)view.findViewById(R.id.email_textView);
+            TextView companyTextView = (TextView)view.findViewById(R.id.company_textView);
             nameTextView.setText(listData.getName());
             emailTextview.setText(listData.getEmail());
             companyTextView.setText(listData.getCompanyName());
         }
-        return convertView;
+        return view;
     }
 }
