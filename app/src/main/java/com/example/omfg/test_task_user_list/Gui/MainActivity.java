@@ -45,7 +45,7 @@ mainActivityFragment.setArguments(bundle);
             tr.commit();
 
         }else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 phone =true;
 Bundle bundle = new Bundle();
 bundle.putBoolean("phone",phone);

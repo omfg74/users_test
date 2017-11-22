@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.omfg.test_task_user_list.Objects.ListData;
+import com.example.omfg.test_task_user_list.Objects.User;
 import com.example.omfg.test_task_user_list.R;
 
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter{
 private Context context;
-ArrayList <ListData> listDatas= new ArrayList<>();
+ArrayList <User> listDatas= new ArrayList<>();
 
-    public CustomAdapter(Context context, ArrayList<ListData> listData) {
+    public CustomAdapter(Context context, ArrayList<User> listData) {
         this.context = context;
         this.listDatas = listData;
     }
