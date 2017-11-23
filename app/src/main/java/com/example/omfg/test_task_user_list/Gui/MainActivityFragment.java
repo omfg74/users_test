@@ -126,7 +126,10 @@ public class MainActivityFragment extends Fragment implements OnDownLoadComplate
         call.enqueue(new Callback<List<UserList>>() {
 
 public void onResponse(Call<List<UserList>> call, Response<List<UserList>> response) {
+    String body = String.valueOf(response.body());
+    Log.d("body", "body: " + body);
     lists = response.body().get(0).getUser();
+
     customAdapter = new CustomAdapter(getContext(), lists);
     listView.setAdapter(customAdapter);
 }
