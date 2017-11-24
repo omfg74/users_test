@@ -16,6 +16,6 @@ import retrofit2.http.GET;
 public interface ApiService {
 
 @GET("/users")
-Call<List<UserList>> getMyJSON();
+Call<List<User>> getMyJSON();
 
 }

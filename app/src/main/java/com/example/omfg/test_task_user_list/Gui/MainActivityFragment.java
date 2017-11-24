@@ -37,7 +37,7 @@ import retrofit2.Response;
  */
 
 public class MainActivityFragment extends Fragment implements OnDownLoadComplated {
-    ArrayList<User> lists = new ArrayList<>();
+   List<User> lists = new ArrayList<>();
     ArrayList<ListData> sotredList = new ArrayList<>();
     ListView listView;
     boolean phone;
@@ -122,17 +122,17 @@ public class MainActivityFragment extends Fragment implements OnDownLoadComplate
 
         this.lists = lists;
         ApiService apiService = RetroClient.getApiService();
-        Call<List<UserList>> call = apiService.getMyJSON();
-        call.enqueue(new Callback<List<UserList>>() {
+        Call<List<User>> call = apiService.getMyJSON();
+        call.enqueue(new Callback<List<User>>() {
 
-public void onResponse(Call<List<UserList>> call, Response<List<UserList>> response) {
-    lists = response.body().get(0).getUser();
+public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+    lists = response.body();
     customAdapter = new CustomAdapter(getContext(), lists);
     listView.setAdapter(customAdapter);
 }
 
             @Override
-            public void onFailure(Call<List<UserList>> call, Throwable t) {
+            public void onFailure(Call<List<User>> call, Throwable t) {
                 Toast.makeText(getContext(), "Faild to load data", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }

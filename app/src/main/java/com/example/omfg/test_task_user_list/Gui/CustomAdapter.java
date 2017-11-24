@@ -12,6 +12,7 @@ import com.example.omfg.test_task_user_list.Objects.User;
 import com.example.omfg.test_task_user_list.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by omfg on 18.11.2017.
@@ -19,9 +20,9 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter{
 private Context context;
-ArrayList <User> listDatas= new ArrayList<>();
+List<User> listDatas= new ArrayList<>();
 
-    public CustomAdapter(Context context, ArrayList<User> listData) {
+    public CustomAdapter(Context context,List<User> listData) {
         this.context = context;
         this.listDatas = listData;
     }
@@ -46,13 +47,14 @@ ArrayList <User> listDatas= new ArrayList<>();
         if(view == null){
             view = LayoutInflater.from(context).inflate(R.layout.listitem,parent,false);
 
-            ListData listData = (ListData)getItem(position);
+//            ListData listData = (ListData)getItem(position);
+User user = (User)getItem(position);
             TextView nameTextView = (TextView)view.findViewById(R.id.name_textView);
             TextView emailTextview = (TextView)view.findViewById(R.id.email_textView);
             TextView companyTextView = (TextView)view.findViewById(R.id.company_textView);
-            nameTextView.setText(listData.getName());
-            emailTextview.setText(listData.getEmail());
-            companyTextView.setText(listData.getCompanyName());
+            nameTextView.setText(user.getName());
+            emailTextview.setText(user.getEmail());
+            companyTextView.setText(user.getCompany().getName());
         }
         return view;
     }
