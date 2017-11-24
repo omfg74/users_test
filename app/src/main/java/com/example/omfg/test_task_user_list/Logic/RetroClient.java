@@ -1,5 +1,7 @@
 package com.example.omfg.test_task_user_list.Logic;
 
+import com.example.omfg.test_task_user_list.BuildConfig;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -9,6 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroClient {
 private static final String ROOT_URL = "https://jsonplaceholder.typicode.com/";
+
 
 
 private static Retrofit getRetrofitInstance(){
