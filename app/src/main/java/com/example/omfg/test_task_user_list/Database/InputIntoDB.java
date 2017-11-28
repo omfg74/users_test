@@ -8,8 +8,10 @@ import android.util.Log;
 
 import com.example.omfg.test_task_user_list.Logic.DbInjector;
 import com.example.omfg.test_task_user_list.Objects.ListData;
+import com.example.omfg.test_task_user_list.Objects.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by omfg on 18.11.2017.
@@ -20,13 +22,13 @@ public class InputIntoDB implements Runnable{
     DBHelper dbHelper;
 SQLiteDatabase db;
 ContentValues contentValues;
-ArrayList<ListData> lists;
-ArrayList<ListData> dataList;
+List<User> lists;
+List<User> dataList;
 //ArrayList<ListData> insertList;
 Cursor cursor;
 Context context;
 DbInjector dbInjector;
-    public InputIntoDB(Context context, ArrayList<ListData> lists) {
+    public InputIntoDB(Context context, List<User> lists) {
 this.lists = lists;
 this.context = context;
 this.dbInjector = dbInjector;
@@ -46,7 +48,7 @@ this.dbInjector = dbInjector;
               null);
       if (cursor.moveToFirst()){
           do{
-              ListData data = new ListData();
+              User data = new User();
 
               data.setId(cursor.getInt(1));
               data.setName(cursor.getString(2));
@@ -72,13 +74,13 @@ this.dbInjector = dbInjector;
       }
 
       if (dataList.size()==0){
-          ArrayList<ListData>insertList = lists;
+          List<User>insertList = lists;
 insertWhatWeVGot(insertList);
 
 
       }else {
           //Прескорбно, что нет технической возможности проверить этот блок. Он отвечает за актуализацию информации.
-          ArrayList<ListData> instartList= new ArrayList<>();
+         List<User> instartList= new ArrayList<>();
 //          ArrayList<Integer>checkList= new ArrayList<>();//сомнитьельная надобность этой конструкции
           for (int i = 0; i <lists.size() ; i++) {
               int id = lists.get(i).getId();
@@ -90,7 +92,7 @@ insertWhatWeVGot(insertList);
                   }else {
                       if(j==dataList.size()-1){
 //                          checkList.add(i);
-                          ListData insertData = lists.get(i);
+                          User insertData = lists.get(i);
                           instartList.add(insertData);
                       }
                   }
@@ -100,7 +102,7 @@ insertWhatWeVGot(insertList);
           if(lists.size()>dataList.size()){
               for (int i = 0; i <lists.size()-dataList.size() ; i++) {
 //                  checkList.add(dataList.size()+i+1);
-                  ListData insertData = lists.get(i);
+                  User insertData = lists.get(i);
                   instartList.add(insertData);
               }
 
@@ -110,26 +112,26 @@ insertWhatWeVGot(insertList);
       }
 
     }
-    private void insertWhatWeVGot(ArrayList<ListData>insertList){
+    private void insertWhatWeVGot(List<User>insertList){
         contentValues  = new ContentValues();
         for (int i = 0; i <insertList.size() ; i++) {
             contentValues.put(DBHelper.COLUMN_ID,insertList.get(i).getId());
             contentValues.put(DBHelper.COLUMN_NAME,insertList.get(i).getName());
-            contentValues.put(DBHelper.COLUMN_USERNAME,insertList.get(i).getUserName());
-            Log.d("USERNAME0"," "+insertList.get(i).getUserName());
+            contentValues.put(DBHelper.COLUMN_USERNAME,insertList.get(i).getUsername();
+            Log.d("USERNAME0"," "+insertList.get(i).getUsername();
             contentValues.put(DBHelper.COLUMN_EMAIL,insertList.get(i).getEmail());
             contentValues.put(DBHelper.COLUMN_PHONE,insertList.get(i).getPhone());
-            contentValues.put(DBHelper.COLUMN_WEBSITE,insertList.get(i).getSite());
-            contentValues.put(DBHelper.COLUMN_STREET,insertList.get(i).getStreet());
-            contentValues.put(DBHelper.COLUMN_SUITE,insertList.get(i).getSuite());
-            contentValues.put(DBHelper.COLUMN_CITY,insertList.get(i).getCity());
-            contentValues.put(DBHelper.COLUMN_ZIPCODE,insertList.get(i).getZipcode());
-            Log.d("ZIP_CONTENT"," "+insertList.get(i).getZipcode());
-            contentValues.put(DBHelper.COLUMN_LAT,insertList.get(i).getLat());
-            contentValues.put(DBHelper.COLUMN_LNG,insertList.get(i).getLng());
-            contentValues.put(DBHelper.COLUMN_COMPANY_NAME,insertList.get(i).getCompanyName());
-            contentValues.put(DBHelper.COLUMN_CATCH_PHRASE,insertList.get(i).getCatchPhrase());
-            contentValues.put(DBHelper.COLUMN_BS,insertList.get(i).getBs());
+            contentValues.put(DBHelper.COLUMN_WEBSITE,insertList.get(i).getWebsite());
+            contentValues.put(DBHelper.COLUMN_STREET,insertList.get(i).getAddress();
+            contentValues.put(DBHelper.COLUMN_SUITE,insertList.get(i).getAddress().getSuite());
+            contentValues.put(DBHelper.COLUMN_CITY,insertList.get(i).getAddress().getCity());
+            contentValues.put(DBHelper.COLUMN_ZIPCODE,insertList.get(i).getAddress().getZipcode());
+            Log.d("ZIP_CONTENT"," "+insertList.get(i).getAddress().getZipcode());
+//            contentValues.put(DBHelper.COLUMN_LAT,insertList.get(i).get);
+//            contentValues.put(DBHelper.COLUMN_LNG,insertList.get(i).getLng());
+            contentValues.put(DBHelper.COLUMN_COMPANY_NAME,insertList.get(i).getCompany().getName());
+            contentValues.put(DBHelper.COLUMN_CATCH_PHRASE,insertList.get(i).getCompany().getCatchPhrase());
+            contentValues.put(DBHelper.COLUMN_BS,insertList.get(i).getCompany().getBs());
             db.insert(DBHelper.TABLE_USERS,null,contentValues);
             contentValues.clear();
 
@@ -146,7 +148,7 @@ insertWhatWeVGot(insertList);
                 null,
                 null);
         if (cursor.moveToFirst()){
-            ListData data = new ListData();
+            User data = new User();
 
 
 
@@ -178,10 +180,10 @@ insertWhatWeVGot(insertList);
                 db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+"  "+DBHelper.COLUMN_NAME+ " = '"+lists.get(i).getName()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
             }
-            if(lists.get(i).getUserName().equals(data.getUserName())){
+            if(lists.get(i).getUsername().equals(data.getUsername())){
 
             }else {
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_USERNAME+" = '"+lists.get(i).getUserName()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_USERNAME+" = '"+lists.get(i).getUsername()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
             }
             if(!lists.get(i).getEmail().equals(data.getEmail())){
@@ -192,41 +194,42 @@ insertWhatWeVGot(insertList);
                 db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_PHONE+" = '"+lists.get(i).getPhone()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
             }
-            if(!lists.get(i).getSite().equals(data.getSite())){
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_WEBSITE+" = '"+lists.get(i).getSite()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+            if(!lists.get(i).getWebsite().equals(data.getSite())){
+                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_WEBSITE+" = '"+lists.get(i).getWebsite()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
             }
-            if(!lists.get(i).getStreet().equals(data.getStreet())){
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_STREET+" = '"+lists.get(i).getStreet()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+            if(!lists.get(i).getAddress().getStreet().equals(data.getStreet())){
+                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_STREET+" = '"+lists.get(i).getAddress().getStreet()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
             }
-            if(!lists.get(i).getSuite().equals(data.getSuite())){
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_SUITE+" = '"+lists.get(i).getSuite()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+            if(!lists.get(i).getAddress().getSuite().equals(data.getSuite())){
+                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_SUITE+" = '"+lists.get(i).getAddress().getSuite()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
             }
-            if(!lists.get(i).getCity().equals(data.getCity())){
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_CITY+" = '"+lists.get(i).getCity()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+            if(!lists.get(i).getAddress().getCity().equals(data.getCity())){
+                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_CITY+" = '"+lists.get(i).getAddress().getCity()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
             }
-            if(!lists.get(i).getZipcode().equals(data.getZipcode())){
-                Log.d("ZIPCODE0"," "+lists.get(i).getZipcode()+" "+(data.getZipcode()));
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_ZIPCODE+" = '"+lists.get(i).getZipcode()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+            if(!lists.get(i).getAddress().getZipcode().equals(data.getZipcode())){
+                Log.d("ZIPCODE0"," "+lists.get(i).getAddress().getZipcode()+" "+(data.getZipcode()));
+                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_ZIPCODE+" = '"+lists.get(i).getAddress().getZipcode()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
             }
-            if(lists.get(i).getLat()!=(data.getLat())){
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_LAT+" = '"+lists.get(i).getLat()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+//            if(lists.get(i).getLat()!=(data.getLat())){
+//                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_LAT+" = '"+lists.get(i).getLat()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+//                        +"'"+i+"'");
+//            }if(lists.get(i).getLng()!=(data.getLng())){
+//                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_LNG+" = '"+lists.get(i).getLng()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+//                        +"'"+i+"'");
+//            }
+            if(!lists.get(i).getCompany().getName().equals(data.getCompanyName())){
+                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_COMPANY_NAME+" = '"+lists.get(i).getCompany().getName()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
-            }if(lists.get(i).getLng()!=(data.getLng())){
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_LNG+" = '"+lists.get(i).getLng()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+            }if(!lists.get(i).getCompany().getCatchPhrase().equals(data.getCatchPhrase())){
+                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_CATCH_PHRASE+" = '"+lists.get(i).getCompany().getCatchPhrase()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
-            }if(!lists.get(i).getCompanyName().equals(data.getCompanyName())){
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_COMPANY_NAME+" = '"+lists.get(i).getCompanyName()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
-                        +"'"+i+"'");
-            }if(!lists.get(i).getCatchPhrase().equals(data.getCatchPhrase())){
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_CATCH_PHRASE+" = '"+lists.get(i).getCatchPhrase()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
-                        +"'"+i+"'");
-            }if(!lists.get(i).getBs().equals(data.getBs())){
-                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_BS+" = '"+lists.get(i).getBs()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
+            }if(!lists.get(i).getCompany().getBs().equals(data.getBs())){
+                db.execSQL("UPDATE "+DBHelper.TABLE_USERS+" SET "+" "+DBHelper.COLUMN_BS+" = '"+lists.get(i).getCompany().getBs()+"' "+" WHERE "+DBHelper.COLUMN_ID + " = "
                         +"'"+i+"'");
             }
     }

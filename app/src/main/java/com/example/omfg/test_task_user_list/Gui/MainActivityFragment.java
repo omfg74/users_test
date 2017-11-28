@@ -38,7 +38,7 @@ import retrofit2.Response;
 
 public class MainActivityFragment extends Fragment implements OnDownLoadComplated {
    List<User> lists = new ArrayList<>();
-    ArrayList<ListData> sotredList = new ArrayList<>();
+    List<User> sotredList = new ArrayList<>();
     ListView listView;
     boolean phone;
     CustomAdapter customAdapter;
@@ -129,6 +129,13 @@ public void onResponse(Call<List<User>> call, Response<List<User>> response) {
     lists = response.body();
     customAdapter = new CustomAdapter(getContext(), lists);
     listView.setAdapter(customAdapter);
+    Runnable insertIntoDB = new InputIntoDB(getContext(), lists);
+        new Thread(insertIntoDB).start();
+
+
+//        this.lists = lists;
+        SortListAlbeticaly sortListAlbeticaly = new SortListAlbeticaly();
+        sotredList = sortListAlbeticaly.sort(lists);
 }
 
             @Override

@@ -22,5 +22,7 @@ public static ApiService getApiService(){
     return getRetrofitInstance().create(ApiService.class);
 }
 
-
+public static  MessageService getMessageService(){
+    return getRetrofitInstance().create(MessageService.class);
+}
 }
